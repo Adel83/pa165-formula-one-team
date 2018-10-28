@@ -1,7 +1,8 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
-
+import cz.muni.fi.pa165.entity.carSetup;
+import cz.muni.fi.pa165.entity.Driver;
 
 public class RaceParticipation extends BaseEntity {
 

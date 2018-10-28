@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.entity;
+import cz.muni.fi.pa165.entity.carSetup;
+import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-public class TestDrive {
+public class TestDrive extends BaseEntity {
 
     private CarSetup car;
     private Driver driver;
