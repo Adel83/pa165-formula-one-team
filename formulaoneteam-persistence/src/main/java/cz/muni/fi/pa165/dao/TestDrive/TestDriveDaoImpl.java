@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dao.TestDrive;
 
-import cz.muni.fi.pa165.entity.carSetup;
+import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +22,7 @@ public class TestDriveDaoImpl implements TestDriveDao {
     public TestDrive findById(Long id) {
         return entityManager.find(TestDrive.class, id);
     }
+
     @Override
     public void add(TestDrive p) {entityManager.persist(p);}
 
@@ -32,19 +33,19 @@ public class TestDriveDaoImpl implements TestDriveDao {
     public void delete(TestDrive p) {entityManager.remove(p);}
 
     @Override
+    public List<TestDrive> findByCar(CarSetup car){
+        return entityManager
+                .createQuery("select r from TestDrive r where r.car = :car", TestDrive.class)
+                .getResultList();
+
+    }
+
+    @Override
     public List<TestDrive> findByNotes(String notes){
 
         return entityManager
                 .createQuery("select r from TestDrive r where r.notes = :notes", TestDrive.class)
                 .getResultList();
-    }
-
-    @Override
-    public List<TestDrive> findByCar(carSetup car){
-        return entityManager
-                .createQuery("select r from TestDrive r where r.car = :car", TestDrive.class)
-                .getResultList();
-
     }
 
     @Override
@@ -61,6 +62,4 @@ public class TestDriveDaoImpl implements TestDriveDao {
                 .getResultList();
 
     }
-
-
 }

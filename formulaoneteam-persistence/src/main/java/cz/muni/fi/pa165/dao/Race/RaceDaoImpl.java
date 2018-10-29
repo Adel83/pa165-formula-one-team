@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RaceDaoImpl implements RaceDao {
-    
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -25,23 +25,29 @@ public class RaceDaoImpl implements RaceDao {
     }
 
     @Override
-    public void add(Race p) {entityManager.persist(p);}
-    
-    @Override
-    public void update(Race p) {entityManager.merge(p);}
+    public void add(Race p) {
+        entityManager.persist(p);
+    }
 
     @Override
-    public void delete(Race p) {entityManager.remove(p);}
-    
+    public void update(Race p) {
+        entityManager.merge(p);
+    }
+
     @Override
-    public List <Race> findByDate(Date date){
+    public void delete(Race p) {
+        entityManager.remove(p);
+    }
+
+    @Override
+    public List<Race> findByDate(Date date) {
         return entityManager
                 .createQuery("select r from Race r where r.date = :date", Race.class)
                 .getResultList();
     }
 
-    @Override    
-    public Race findByTitle(String title){
+    @Override
+    public Race findByTitle(String title) {
         try {
             return entityManager
                     .createQuery("select r from Race r where r.title = :title",
@@ -51,22 +57,19 @@ public class RaceDaoImpl implements RaceDao {
             return null;
         }
     }
-        
-    
-    @Override    
-    public List<Race> findByLocation(String Location){
+
+    @Override
+    public List<Race> findByLocation(String Location) {
         List<Race> resultList = entityManager
                 .createQuery("select r from Race r where r.Location = :Location", Race.class)
                 .getResultList();
         return resultList;
-    
-    
     }
+
     @Override
     public List<Race> findAll() {
         return entityManager
                 .createQuery("select r from Race r", Race.class)
                 .getResultList();
-    
-    
+    }
 }

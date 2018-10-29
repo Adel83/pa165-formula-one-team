@@ -9,17 +9,9 @@ import java.util.List;
 /**
  * @author Adel Chakouri
  */
-
 @Repository
 public interface RaceDao extends Dao<Race> {
-    public Race findById(Long id);
-    public void add(Race p);
-    public void delete(Race p);
-    public void update(Race p);
-    public List <Race> findByDate(Date date);
-    public Race findByTitle(String title);
-    public List<Race> findByLocation(String Location);
-
-
-
+     List <Race> findByDate(Date date);
+     Race findByTitle(String title);
+     List<Race> findByLocation(String Location);
 }

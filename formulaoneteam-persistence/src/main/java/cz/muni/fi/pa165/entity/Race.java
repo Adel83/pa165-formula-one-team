@@ -1,13 +1,15 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
-import java.util.Date;
+import org.apache.derby.vti.Restriction;
 
+import javax.persistence.Entity;
+import java.util.Date;
 
 /**
  * @author Adel Chakouri
  */
-
+@Entity
 public class Race extends BaseEntity {
 
 
@@ -25,6 +27,25 @@ public class Race extends BaseEntity {
     public String getLocation(){return Location;}
     public void setLocation(String location){this.Location=Location;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof Race)) return false;
+        Race race = (Race) o;
+
+        if (date != null ? !date.equals(race.date) : race.date != null) return false;
+        return title != null ? title.equals(race.title) : race.title == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getDate() != null ? getDate().hashCode() : 0;
+        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Race{" +
                 "date='" + getDate() + '\'' +

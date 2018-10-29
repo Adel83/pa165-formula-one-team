@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.dao.RaceParticipation;
 
 import cz.muni.fi.pa165.entity.RaceParticipation;
+import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.entity.Driver;
 import org.springframework.stereotype.Repository;
 import cz.muni.fi.pa165.entity.Race;
 import javax.persistence.EntityManager;
@@ -34,15 +36,13 @@ public class RaceParticipationDaoImpl implements RaceParticipationDao {
         return entityManager
                 .createQuery("select r from RaceParticipation r where r.resultPosition = :resultPosition", RaceParticipation.class)
                 .getResultList();
-
     }
 
     @Override
-    public List <RaceParticipation> findByCar(carSetup car){
+    public List <RaceParticipation> findByCar(CarSetup car){
         return entityManager
                 .createQuery("select r from RaceParticipation r where r.car = :car", RaceParticipation.class)
                 .getResultList();
-
     }
 
     @Override
@@ -50,7 +50,6 @@ public class RaceParticipationDaoImpl implements RaceParticipationDao {
         return entityManager
                 .createQuery("select r from RaceParticipation r where r.driver = :driver", RaceParticipation.class)
                 .getResultList();
-
     }
 
     @Override
@@ -58,14 +57,12 @@ public class RaceParticipationDaoImpl implements RaceParticipationDao {
         return entityManager
                 .createQuery("select r from RaceParticipation r where r.race = :race", RaceParticipation.class)
                 .getResultList();
-
     }
 
     @Override
-    public List<RaceParticipationDao> findAll() {
+    public List<RaceParticipation> findAll() {
         return entityManager
                 .createQuery("select r from RaceParticipation r", RaceParticipation.class)
                 .getResultList();
-
     }
 }
