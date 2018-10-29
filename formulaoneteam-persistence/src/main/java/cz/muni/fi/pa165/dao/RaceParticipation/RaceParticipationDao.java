@@ -7,6 +7,9 @@ import cz.muni.fi.pa165.entity.RaceParticipation;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+/**
+ * @author Adel Chakouri
+ */
 
 @Repository
 public interface RaceParticipationDao {

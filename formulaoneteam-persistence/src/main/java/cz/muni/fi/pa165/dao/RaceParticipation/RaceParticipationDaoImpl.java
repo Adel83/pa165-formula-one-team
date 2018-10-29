@@ -6,6 +6,9 @@ import cz.muni.fi.pa165.entity.Race;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+/**
+ * @author Adel Chakouri
+ */
 
 @Repository
 public class RaceParticipationDaoImpl implements RaceParticipationDao {

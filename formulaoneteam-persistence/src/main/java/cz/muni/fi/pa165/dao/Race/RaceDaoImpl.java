@@ -9,6 +9,10 @@ import java.util.List;
 import cz.muni.fi.pa165.entity.Race;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Adel Chakouri
+ */
+
 @Repository
 public class RaceDaoImpl implements RaceDao {
     

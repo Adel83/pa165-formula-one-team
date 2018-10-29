@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Adel Chakouri
+ */
+
 @Repository
 public interface RaceDao extends Dao<Race> {
     public Race findById(Long id);

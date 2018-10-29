@@ -3,8 +3,13 @@ import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.TestDrive;
 import cz.muni.fi.pa165.entity.carSetup;
 import cz.muni.fi.pa165.entity.Driver;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+/**
+ * @author Adel Chakouri
+ */
+@Repository
 public interface TestDriveDao extends Dao<TestDrive> {
 
     public TestDrive findById(Long id);

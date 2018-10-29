@@ -8,6 +8,10 @@ import cz.muni.fi.pa165.entity.TestDrive;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+/**
+ * @author Adel Chakouri
+ */
+
 @Repository
 public class TestDriveDaoImpl implements TestDriveDao {
 
