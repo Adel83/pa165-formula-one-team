@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Adel Chakouri
  */
-
 @Repository
 public class RaceDaoImpl implements RaceDao {
 

@@ -1,17 +1,15 @@
 package cz.muni.fi.pa165.dao.RaceParticipation;
 
 import cz.muni.fi.pa165.entity.RaceParticipation;
-import cz.muni.fi.pa165.entity.CarSetup;
-import cz.muni.fi.pa165.entity.Driver;
 import org.springframework.stereotype.Repository;
-import cz.muni.fi.pa165.entity.Race;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
 /**
  * @author Adel Chakouri
  */
-
 @Repository
 public class RaceParticipationDaoImpl implements RaceParticipationDao {
 
@@ -22,14 +20,21 @@ public class RaceParticipationDaoImpl implements RaceParticipationDao {
     public RaceParticipation findById(Long id) {
         return entityManager.find(RaceParticipation.class, id);
     }
-    @Override
-    public void add(RaceParticipation RacePart) {entityManager.persist(RacePart);}
 
     @Override
-    public void update(RaceParticipation RacePart) {entityManager.merge(RacePart);}
+    public void add(RaceParticipation RacePart) {
+        entityManager.persist(RacePart);
+    }
 
     @Override
-    public void delete(RaceParticipation RacePart) {entityManager.remove(RacePart);}
+    public void update(RaceParticipation RacePart) {
+        entityManager.merge(RacePart);
+    }
+
+    @Override
+    public void delete(RaceParticipation RacePart) {
+        entityManager.remove(RacePart);
+    }
 
     @Override
     public List<RaceParticipation> findAll() {

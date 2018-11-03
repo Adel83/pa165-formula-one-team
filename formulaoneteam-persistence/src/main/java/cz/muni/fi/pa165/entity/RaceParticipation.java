@@ -7,25 +7,22 @@ import org.apache.derby.vti.Restriction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author Adel Chakouri
  */
-
 @Entity
 public class RaceParticipation extends BaseEntity {
 
-    @NotNull
-    @Column(nullable = false)
+    @ManyToOne
     private CarSetup car;
 
-    @NotNull
-    @Column(nullable = false)
+    @ManyToOne
     private Driver driver;
 
-    @NotNull
-    @Column(nullable = false)
+    @ManyToOne
     private Race race;
 
     @NotNull
@@ -93,6 +90,4 @@ public class RaceParticipation extends BaseEntity {
                 ",  resultPosition='" + getResultPosition() + '\'' +
                 "} " + super.toString();
     }
-
-
 }

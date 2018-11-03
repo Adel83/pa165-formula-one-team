@@ -26,15 +26,29 @@ public class Race extends BaseEntity {
     @Column(nullable = false)
     private String Location;
 
+    public Date getDate() {
+        return date;
+    }
 
-    public Date getDate(){return date;}
-    public void setDate(Date date){this.date=date;}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-    public String getTitle(){return title;}
-    public void setTitle(String title){this.title=title;}
+    public String getTitle() {
+        return title;
+    }
 
-    public String getLocation(){return Location;}
-    public void setLocation(String location){this.Location=Location;}
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        this.Location = Location;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -62,5 +76,4 @@ public class Race extends BaseEntity {
                 ", Location='" + getLocation() + '\'' +
                 "} " + super.toString();
     }
-
 }

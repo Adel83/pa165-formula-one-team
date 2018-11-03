@@ -1,24 +1,22 @@
 package cz.muni.fi.pa165.entity;
-import cz.muni.fi.pa165.entity.CarSetup;
-import cz.muni.fi.pa165.entity.Driver;
+
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author Adel Chakouri
  */
-
 @Entity
 public class TestDrive extends BaseEntity {
-    @NotNull
-    @Column(nullable = false)
+
+    @ManyToOne
     private CarSetup car;
 
-    @NotNull
-    @Column(nullable = false)
+    @ManyToOne
     private Driver driver;
 
     @NotNull
@@ -58,7 +56,8 @@ public class TestDrive extends BaseEntity {
         TestDrive testDrive = (TestDrive) o;
 
         if (getCar() != null ? !getCar().equals(testDrive.getCar()) : testDrive.getCar() != null) return false;
-        if (getDriver() != null ? !getDriver().equals(testDrive.getDriver()) : testDrive.getDriver() != null) return false;
+        if (getDriver() != null ? !getDriver().equals(testDrive.getDriver()) : testDrive.getDriver() != null)
+            return false;
         return getNotes() != null ? getNotes().equals(testDrive.getNotes()) : testDrive.getNotes() == null;
     }
 

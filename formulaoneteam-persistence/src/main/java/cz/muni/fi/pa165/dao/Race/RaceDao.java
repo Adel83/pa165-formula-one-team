@@ -9,7 +9,5 @@ import java.util.List;
 /**
  * @author Adel Chakouri
  */
-
 public interface RaceDao extends Dao<Race> {
-
 }
