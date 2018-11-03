@@ -2,16 +2,27 @@ package cz.muni.fi.pa165.entity;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Adel Chakouri
  */
 
 @Entity
 public class TestDrive extends BaseEntity {
-
+    @NotNull
+    @Column(nullable = false)
     private CarSetup car;
+
+    @NotNull
+    @Column(nullable = false)
     private Driver driver;
+
+    @NotNull
+    @Column(nullable = false)
     private String notes;
 
     public CarSetup getCar() {

@@ -9,9 +9,6 @@ import java.util.List;
 /**
  * @author Adel Chakouri
  */
-@Repository
+
 public interface TestDriveDao extends Dao<TestDrive> {
-    public List<TestDrive> findByNotes(String notes);
-    public List<TestDrive> findByCar(CarSetup car);
-    public List<TestDrive> findByRace(Driver driver);
 }

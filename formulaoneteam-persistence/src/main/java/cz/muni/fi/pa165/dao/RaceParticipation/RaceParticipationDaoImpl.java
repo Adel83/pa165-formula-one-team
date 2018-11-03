@@ -23,41 +23,13 @@ public class RaceParticipationDaoImpl implements RaceParticipationDao {
         return entityManager.find(RaceParticipation.class, id);
     }
     @Override
-    public void add(RaceParticipation p) {entityManager.persist(p);}
+    public void add(RaceParticipation RacePart) {entityManager.persist(RacePart);}
 
     @Override
-    public void update(RaceParticipation p) {entityManager.merge(p);}
+    public void update(RaceParticipation RacePart) {entityManager.merge(RacePart);}
 
     @Override
-    public void delete(RaceParticipation p) {entityManager.remove(p);}
-
-    @Override
-    public List<RaceParticipation> findByResultPosition(int resultPosition){
-        return entityManager
-                .createQuery("select r from RaceParticipation r where r.resultPosition = :resultPosition", RaceParticipation.class)
-                .getResultList();
-    }
-
-    @Override
-    public List <RaceParticipation> findByCar(CarSetup car){
-        return entityManager
-                .createQuery("select r from RaceParticipation r where r.car = :car", RaceParticipation.class)
-                .getResultList();
-    }
-
-    @Override
-    public List <RaceParticipation> findByDriver(Driver driver){
-        return entityManager
-                .createQuery("select r from RaceParticipation r where r.driver = :driver", RaceParticipation.class)
-                .getResultList();
-    }
-
-    @Override
-    public List <RaceParticipation> findByRace(Race race){
-        return entityManager
-                .createQuery("select r from RaceParticipation r where r.race = :race", RaceParticipation.class)
-                .getResultList();
-    }
+    public void delete(RaceParticipation RacePart) {entityManager.remove(RacePart);}
 
     @Override
     public List<RaceParticipation> findAll() {

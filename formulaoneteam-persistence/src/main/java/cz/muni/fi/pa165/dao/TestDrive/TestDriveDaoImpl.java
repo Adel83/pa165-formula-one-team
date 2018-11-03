@@ -33,29 +33,6 @@ public class TestDriveDaoImpl implements TestDriveDao {
     public void delete(TestDrive p) {entityManager.remove(p);}
 
     @Override
-    public List<TestDrive> findByCar(CarSetup car){
-        return entityManager
-                .createQuery("select r from TestDrive r where r.car = :car", TestDrive.class)
-                .getResultList();
-
-    }
-
-    @Override
-    public List<TestDrive> findByNotes(String notes){
-
-        return entityManager
-                .createQuery("select r from TestDrive r where r.notes = :notes", TestDrive.class)
-                .getResultList();
-    }
-
-    @Override
-    public List<TestDrive> findByRace(Driver driver){
-        return entityManager
-                .createQuery("select r from TestDrive r where r.driver = :driver", TestDrive.class)
-                .getResultList();
-
-    }
-
     public List<TestDrive> findAll(){
         return entityManager
                 .createQuery("select r from TestDrive r ", TestDrive.class)

@@ -3,7 +3,9 @@ package cz.muni.fi.pa165.entity;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import org.apache.derby.vti.Restriction;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -12,9 +14,16 @@ import java.util.Date;
 @Entity
 public class Race extends BaseEntity {
 
-
+    @NotNull
+    @Column(nullable = false)
     private Date date;
+
+    @NotNull
+    @Column(nullable = false)
     private String title;
+
+    @NotNull
+    @Column(nullable = false)
     private String Location;
 
 

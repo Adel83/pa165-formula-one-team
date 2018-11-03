@@ -25,45 +25,18 @@ public class RaceDaoImpl implements RaceDao {
     }
 
     @Override
-    public void add(Race p) {
-        entityManager.persist(p);
+    public void add(Race race) {
+        entityManager.persist(race);
     }
 
     @Override
-    public void update(Race p) {
-        entityManager.merge(p);
+    public void update(Race race) {
+        entityManager.merge(race);
     }
 
     @Override
-    public void delete(Race p) {
-        entityManager.remove(p);
-    }
-
-    @Override
-    public List<Race> findByDate(Date date) {
-        return entityManager
-                .createQuery("select r from Race r where r.date = :date", Race.class)
-                .getResultList();
-    }
-
-    @Override
-    public Race findByTitle(String title) {
-        try {
-            return entityManager
-                    .createQuery("select r from Race r where r.title = :title",
-                            Race.class).setParameter("title", title)
-                    .getSingleResult();
-        } catch (NoResultException nrf) {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Race> findByLocation(String Location) {
-        List<Race> resultList = entityManager
-                .createQuery("select r from Race r where r.Location = :Location", Race.class)
-                .getResultList();
-        return resultList;
+    public void delete(Race race) {
+        entityManager.remove(race);
     }
 
     @Override

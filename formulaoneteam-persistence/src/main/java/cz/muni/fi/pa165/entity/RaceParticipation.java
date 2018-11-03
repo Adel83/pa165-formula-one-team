@@ -5,7 +5,10 @@ import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import org.apache.derby.vti.Restriction;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Adel Chakouri
  */
@@ -13,9 +16,20 @@ import javax.persistence.Entity;
 @Entity
 public class RaceParticipation extends BaseEntity {
 
+    @NotNull
+    @Column(nullable = false)
     private CarSetup car;
+
+    @NotNull
+    @Column(nullable = false)
     private Driver driver;
+
+    @NotNull
+    @Column(nullable = false)
     private Race race;
+
+    @NotNull
+    @Column(nullable = false)
     private int resultPosition;
 
     public CarSetup getCar() {
