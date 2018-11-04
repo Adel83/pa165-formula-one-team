@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
+
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertEquals;
@@ -38,6 +40,7 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
         managerDao.add(manager);
 
         assertNotNull(managerDao.findById(manager.getId()));
+
     }
 
     @Test
