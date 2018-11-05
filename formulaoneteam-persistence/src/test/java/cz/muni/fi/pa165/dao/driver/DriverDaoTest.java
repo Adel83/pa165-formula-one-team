@@ -1,21 +1,11 @@
 package cz.muni.fi.pa165.dao.driver;
 
-import cz.muni.fi.pa165.AppContextConfig;
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.Driver;
-import cz.muni.fi.pa165.entity.DriverStatus;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
-import org.testng.AssertJUnit;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.inject.Inject;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static org.testng.Assert.*;
@@ -23,30 +13,25 @@ import static org.testng.Assert.*;
 /**
  * @author Adel Chakouri
  */
-
-@ContextConfiguration(classes= AppContextConfig.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class DriverDaoTest extends AbstractTestNGSpringContextTests {
+public class DriverDaoTest extends BaseTest {
 
     @Inject
     private DriverDao driverDao;
 
     @Test
     public void addDriver_withValidData_isPersisted() {
-        String mail ="Driver@drive.cz";
-        Driver driver = createDriver(mail);
+        //given
+        Driver driver = createDriver("Driver@drive.cz");
 
         //when
         driverDao.add(driver);
 
         //then
-        AssertJUnit.assertNotNull(driverDao.findById(driver.getId()));
+        assertNotNull(driverDao.findById(driver.getId()));
     }
 
     @Test
-    public void deleteDriver_withValidData_isPersiste() {
+    public void deleteDriver_withValidData_isPersisted() {
         String mail = "Driver@drive.cz";
         Driver driver = createDriver(mail);
 
@@ -59,24 +44,21 @@ public class DriverDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void updateDriver_withEmail() {
+        String oldMail = "driver1@drive.cz";
+        String newMail = "driver22@drive.Cz";
 
-       String oldMail="driver1@drive.cz";
-       String newMail="driver22@drive.Cz";
+        Driver driver = createDriver(oldMail);
 
-       Driver driver = createDriver(oldMail);
-
-       driverDao.add(driver);
-       driver.setEmail(newMail);
-       driverDao.update(driver);
-
+        driverDao.add(driver);
+        driver.setEmail(newMail);
+        driverDao.update(driver);
 
         Driver newDriver = driverDao.findById(driver.getId());
-
-        assertEquals(newMail,newDriver.getEmail());
+        assertEquals(newMail, newDriver.getEmail());
     }
 
     @Test
-    public void addTwoDrivers(){
+    public void addTwoDrivers() {
         Driver d1 = createDriver("driver123@driver.fr");
         Driver d2 = createDriver("driver321@driver.cz");
 
@@ -84,28 +66,17 @@ public class DriverDaoTest extends AbstractTestNGSpringContextTests {
         driverDao.add(d2);
 
         List<Driver> result = driverDao.findAll();
-        assertEquals(2,result.size());
+        assertEquals(2, result.size());
         assertTrue(result.contains(d1));
         assertTrue(result.contains(d2));
     }
 
+    @Test(expected = InvalidDataAccessApiUsageException.class)
+    public void validateEntity_exceptionIsThrown() {
+        //given
+        Driver notConfiguredDriver = createDriver("");
 
-
-    private Date createDate(int date, int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, date);
-        return calendar.getTime();
-    }
-    private Driver createDriver (String email){
-        Driver driver = new Driver();
-        driver.setBirthdate(createDate(2, 11, 1995));
-        driver.setName("name");
-        driver.setSurname("surname");
-        driver.setNationality("nationality");
-        driver.setDriverStatus(DriverStatus.MAIN);
-        driver.setPassword("password");
-        driver.setEmail(email);
-
-        return driver;
+        //when
+        driverDao.add(notConfiguredDriver);
     }
 }

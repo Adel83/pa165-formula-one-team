@@ -1,70 +1,57 @@
 package cz.muni.fi.pa165.dao.characteristics;
 
-import cz.muni.fi.pa165.AppContextConfig;
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.CharacteristicsType;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
-import org.testng.AssertJUnit;
 
 import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 /**
  * @author Adel Chakouri
  */
-
-@ContextConfiguration(classes= AppContextConfig.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class CharacteristicsValueDaoTest extends AbstractTestNGSpringContextTests {
+public class CharacteristicsValueDaoTest extends BaseTest {
 
     @Inject
     private CharacteristicsValueDao characteristicsValueDao;
 
     @Test
     public void addCharacteristics_withValidData_isPersisted() {
+        //given
         CharacteristicsType type = CharacteristicsType.AGGRESIVITY;
         CharacteristicsValue characteristicsValue = createCharacteristics(type);
 
-        //Then
+        //when
         characteristicsValueDao.add(characteristicsValue);
 
-        //That
-        AssertJUnit.assertNotNull(characteristicsValueDao.findById(characteristicsValue.getId()));
+        //then
+        assertNotNull(characteristicsValueDao.findById(characteristicsValue.getId()));
     }
 
     @Test
     public void deleteCharacteristics_withValidData_isPersisted() {
-
+        //given
         CharacteristicsType type = CharacteristicsType.AGGRESIVITY;
         CharacteristicsValue characteristicsValue = createCharacteristics(type);
 
+        //when
         characteristicsValueDao.add(characteristicsValue);
         characteristicsValueDao.delete(characteristicsValue);
 
-        List<CharacteristicsValue> result = (List<CharacteristicsValue>) characteristicsValueDao.findCharacteristicValuesByType(type);
-        assertEquals(0, result.size());
-
+        //then
+        assertEquals(0, characteristicsValueDao.findCharacteristicValuesByType(type).size());
     }
 
     @Test
-    public void updateCharacteristics(){
+    public void updateCharacteristics() {
         //given
-        CharacteristicsType oldType = CharacteristicsType.AGGRESIVITY;
         CharacteristicsType newType = CharacteristicsType.PATIENCE;
-        CharacteristicsValue characteristicsValue = createCharacteristics(oldType);
+        CharacteristicsValue characteristicsValue = createCharacteristics(CharacteristicsType.AGGRESIVITY);
 
         //when
         characteristicsValueDao.add(characteristicsValue);
@@ -72,32 +59,23 @@ public class CharacteristicsValueDaoTest extends AbstractTestNGSpringContextTest
         characteristicsValueDao.update(characteristicsValue);
 
         //then
-        Assert.assertEquals(newType,characteristicsValueDao.findById(characteristicsValue.getId()).getType());
+        assertEquals(newType, characteristicsValueDao.findById(characteristicsValue.getId()).getType());
     }
 
     @Test
-    public void addTwoCharacteristics(){
-
+    public void addTwoCharacteristics() {
+        //given
         CharacteristicsValue characteristics1 = createCharacteristics(CharacteristicsType.AGGRESIVITY);
         CharacteristicsValue characteristics2 = createCharacteristics(CharacteristicsType.PATIENCE);
 
+        //when
         characteristicsValueDao.add(characteristics1);
         characteristicsValueDao.add(characteristics2);
 
+        //then
         List<CharacteristicsValue> result = characteristicsValueDao.findAll();
         assertEquals(2, result.size());
         assertTrue(result.contains(characteristics1));
         assertTrue(result.contains(characteristics2));
-
-    }
-
-
-    private CharacteristicsValue createCharacteristics(CharacteristicsType Type){
-        CharacteristicsValue characteristicsValue = new CharacteristicsValue();
-
-        characteristicsValue.setValue(100.0);
-        characteristicsValue.setType(Type);
-
-        return characteristicsValue;
     }
 }
