@@ -17,9 +17,9 @@ import org.testng.AssertJUnit;
 import javax.inject.Inject;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
+import static org.testng.Assert.*;
 
 /**
  * @author Adel Chakouri
@@ -67,14 +67,27 @@ public class DriverDaoTest extends AbstractTestNGSpringContextTests {
        Driver driver = createDriver(oldMail);
 
        driverDao.add(driver);
-
        driver.setEmail(newMail);
+       driverDao.update(driver);
 
-        Driver oldDriver = driverDao.findByEmail(oldMail);
-        Driver newDriver = driverDao.findByEmail(newMail);
 
-        assertNull(oldDriver);
-        assertNotNull(newDriver);
+        Driver newDriver = driverDao.findById(driver.getId());
+
+        assertEquals(newMail,newDriver.getEmail());
+    }
+
+    @Test
+    public void addTwoDrivers(){
+        Driver d1 = createDriver("driver123@driver.fr");
+        Driver d2 = createDriver("driver321@driver.cz");
+
+        driverDao.add(d1);
+        driverDao.add(d2);
+
+        List<Driver> result = driverDao.findAll();
+        assertEquals(2,result.size());
+        assertTrue(result.contains(d1));
+        assertTrue(result.contains(d2));
     }
 
 

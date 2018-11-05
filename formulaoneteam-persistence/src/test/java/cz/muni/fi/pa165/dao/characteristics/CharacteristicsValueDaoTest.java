@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.AssertJUnit;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ import java.awt.*;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Adel Chakouri
@@ -62,24 +64,35 @@ public class CharacteristicsValueDaoTest extends AbstractTestNGSpringContextTest
 
     @Test
     public void updateCharacteristics(){
-
+        //given
         CharacteristicsType oldType = CharacteristicsType.AGGRESIVITY;
         CharacteristicsType newType = CharacteristicsType.PATIENCE;
-
         CharacteristicsValue characteristicsValue = createCharacteristics(oldType);
 
+        //when
         characteristicsValueDao.add(characteristicsValue);
-
         characteristicsValue.setType(newType);
+        characteristicsValueDao.update(characteristicsValue);
 
-        List<CharacteristicsValue> oldCharacteristics =characteristicsValueDao.findCharacteristicValuesByType(oldType);
-        List<CharacteristicsValue> newCharacteristics =characteristicsValueDao.findCharacteristicValuesByType(newType);
-
-        assertEquals(0, oldCharacteristics.size());
-        assertEquals(1, newCharacteristics.size());
-
+        //then
+        Assert.assertEquals(newType,characteristicsValueDao.findById(characteristicsValue.getId()).getType());
     }
 
+    @Test
+    public void addTwoCharacteristics(){
+
+        CharacteristicsValue characteristics1 = createCharacteristics(CharacteristicsType.AGGRESIVITY);
+        CharacteristicsValue characteristics2 = createCharacteristics(CharacteristicsType.PATIENCE);
+
+        characteristicsValueDao.add(characteristics1);
+        characteristicsValueDao.add(characteristics2);
+
+        List<CharacteristicsValue> result = characteristicsValueDao.findAll();
+        assertEquals(result,2);
+        assertTrue(result.contains(characteristics1));
+        assertTrue(result.contains(characteristics2));
+
+    }
 
 
     private CharacteristicsValue createCharacteristics(CharacteristicsType Type){
